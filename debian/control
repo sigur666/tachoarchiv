@@ -1,0 +1,42 @@
+Source: tachoarchiv
+Section: utils
+Priority: optional
+Maintainer: TachoArchiv <8951678+sigur666@users.noreply.github.com>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-setuptools,
+               pybuild-plugin-pyproject
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Homepage: https://github.com/sigur666/tachoarchiv
+
+Package: tachoarchiv
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-pyside6.qtcore,
+         python3-pyside6.qtgui,
+         python3-pyside6.qtwidgets,
+         python3-pyside6.qtprintsupport,
+         python3-cryptography,
+         libpcsclite1,
+         fonts-noto-core
+Recommends: pcscd
+Description: Fahrerkarten auslesen, archivieren und auswerten
+ TachoArchiv liest Fahrerkarten des digitalen Fahrtenschreibers (Generation 1
+ und 2) ueber einen PC/SC-Kartenleser aus, archiviert die signierten
+ Originaldateien unveraendert und wertet Lenk-, Ruhe- und Arbeitszeiten aus.
+ .
+ Geprueft wird nach VO (EG) 561/2006 in der Fassung der VO (EU) 2020/1054,
+ VO (EU) 165/2014 und VO (EU) 581/2010, auf Wunsch zusaetzlich nach dem
+ Arbeitszeitgesetz. Beruecksichtigt werden unter anderem Lenkzeitunterbrechung,
+ taegliche und woechentliche Ruhezeiten samt Ausgleich, Wochen- und
+ Doppelwochenlenkzeit sowie die Ausnahme fuer Faehr- und Zugueberfahrten
+ nach Artikel 9.
+ .
+ Die Oberflaeche steht in 30 Sprachen zur Verfuegung, darunter alle im
+ Gueterverkehr gaengigen EU-Sprachen, Albanisch und Serbisch in beiden
+ Schriften sowie Ukrainisch, Russisch, Weissrussisch, Tuerkisch, Arabisch,
+ Hindi, Urdu und Punjabi. Berichte lassen sich als PDF und
+ CSV ausgeben. Das Programm arbeitet ohne Netzwerkzugriff.

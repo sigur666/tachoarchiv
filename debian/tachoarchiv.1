@@ -1,0 +1,47 @@
+.TH TACHOARCHIV 1 "September 2026" "tachoarchiv 1.5.0" "Dienstprogramme"
+.SH BEZEICHNUNG
+tachoarchiv \- Fahrerkarten auslesen, archivieren und auswerten
+.SH ÜBERSICHT
+.B tachoarchiv
+.SH BESCHREIBUNG
+.B tachoarchiv
+liest Fahrerkarten des digitalen Fahrtenschreibers (Generation 1 und 2) über
+einen PC/SC-Kartenleser aus, archiviert die signierten Originaldateien
+unverändert und wertet Lenk-, Ruhe- und Arbeitszeiten aus.
+.PP
+Das Programm hat eine grafische Oberfläche und kennt keine Befehlszeilen\-
+optionen. Geprüft wird nach VO (EG) 561/2006 in der Fassung der
+VO (EU) 2020/1054, VO (EU) 165/2014 und VO (EU) 581/2010, auf Wunsch
+zusätzlich nach dem Arbeitszeitgesetz. Die Oberfläche gibt es in Deutsch,
+Englisch, Polnisch, Bulgarisch und Tschechisch.
+.SH VORAUSSETZUNGEN
+Der Kartenleser wird über den PC/SC\-Dienst angesprochen. Dazu muss
+.BR pcscd (8)
+installiert und gestartet sein:
+.PP
+.RS
+systemctl enable \-\-now pcscd.socket
+.RE
+.SH UMGEBUNGSVARIABLEN
+.TP
+.B TACHOARCHIV_PCSCLIB
+Pfad zu einer abweichenden
+.IR libpcsclite.so.1 .
+.SH DATEIEN
+.TP
+.I ~/.local/share/TachoArchiv/archiv/archiv.sqlite
+Index des Archivs.
+.TP
+.I ~/.local/share/TachoArchiv/archiv/ddd/
+Unveränderte Originaldateien der Kartendownloads, schreibgeschützt.
+.TP
+.I ~/.config/TachoArchiv/TachoArchiv.conf
+Einstellungen (Sprache, Auswertungsoptionen, Archivordner).
+.SH HINWEISE
+Die Auswertung ist eine Arbeitshilfe und ersetzt keine rechtliche Prüfung.
+Alle Zeiten werden in UTC angezeigt, wie vom Fahrtenschreiber aufgezeichnet.
+Kartensignaturen werden gespeichert, aber nicht gegen die europäische
+Wurzelzertifizierungsstelle (ERCA) geprüft.
+.SH SIEHE AUCH
+.BR pcscd (8),
+.BR pcsc_scan (1)

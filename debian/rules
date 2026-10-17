@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+export PYBUILD_NAME=tachoarchiv
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+# Die Kernlogik laeuft ohne Qt; der Test deckt Parser, Regelwerk und Archiv ab.
+override_dh_auto_test:
+	python3 tests/test_core.py
+
+# Die Bedienungsanleitung soll lesbar bleiben, nicht als .gz
+override_dh_compress:
+	dh_compress -X.md

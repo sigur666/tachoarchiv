@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tachoarchiv"
+version = "1.10.0"
+description = "Auslesen, Archivieren und Auswerten von Fahrerkarten (digitaler Fahrtenschreiber)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "GPL-3.0-or-later" }   # Textform: auch mit aelteren setuptools baubar
+
+# PySide6 wird bewusst nicht als Python-Abhängigkeit geführt: in Debian kommt Qt
+# aus den Distributionspaketen (python3-pyside6.*), nicht aus PyPI.
+
+[project.scripts]
+tachoarchiv = "tachoarchiv.app:main"
+
+[tool.setuptools]
+packages = ["tachoarchiv"]
+
+[tool.setuptools.package-data]
+tachoarchiv = ["locale/*.json"]

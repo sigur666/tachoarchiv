@@ -1,0 +1,3 @@
+# Der Changelog ist auf Deutsch; lintian prueft gegen ein englisches Woerterbuch.
+# "die die" ist dort Artikel plus Relativpronomen, kein doppeltes Wort.
+tachoarchiv: spelling-error-in-changelog *

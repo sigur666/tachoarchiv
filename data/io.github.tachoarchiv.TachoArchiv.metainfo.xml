@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.tachoarchiv.TachoArchiv</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>TachoArchiv</name>
+  <summary>Read, archive and evaluate tachograph driver cards</summary>
+  <summary xml:lang="de">Fahrerkarten auslesen, archivieren und auswerten</summary>
+  <summary xml:lang="pl">Odczyt, archiwizacja i analiza kart kierowców</summary>
+  <summary xml:lang="bg">Прочитане, архивиране и анализ на карти на водача</summary>
+  <summary xml:lang="cs">Načítání, archivace a vyhodnocení karet řidičů</summary>
+  <description>
+    <p>TachoArchiv reads first and second generation driver cards through any PC/SC card reader,
+    stores the signed downloads unchanged as DDD files and checks driving times, breaks and rest
+    periods according to Regulation (EC) 561/2006 as amended by the Mobility Package.</p>
+    <p>Available in German, English, Polish, Bulgarian and Czech.</p>
+  </description>
+  <launchable type="desktop-id">io.github.tachoarchiv.TachoArchiv.desktop</launchable>
+  <categories>
+    <category>Office</category>
+  </categories>
+  <requires>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </requires>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.0.0" date="2026-09-17"/>
+  </releases>
+</component>

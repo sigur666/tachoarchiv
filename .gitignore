@@ -1,0 +1,34 @@
+# Bauwerk und Zwischenstände
+build/
+dist/
+.pybuild/
+*.egg-info/
+__pycache__/
+*.py[cod]
+
+# Debian-Bau
+debian/tachoarchiv/
+debian/.debhelper/
+debian/files
+debian/*.substvars
+debian/*.debhelper.log
+debian/debhelper-build-stamp
+
+# Pakete
+*.deb
+*.buildinfo
+*.changes
+*.tar.gz
+
+# Niemals ins Verzeichnis: Archivdaten und Schlüssel
+archiv/
+erca/
+*.DDD
+*.ddd
+*.C1B
+*.V1B
+*.V2B
+*.TGD
+zugang.json
+archiv.sqlite*
+debian/*.debhelper

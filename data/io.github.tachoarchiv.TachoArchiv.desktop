@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Application
+Name=TachoArchiv
+GenericName=Driver card archive
+GenericName[de]=Fahrerkarten-Archiv
+GenericName[pl]=Archiwum kart kierowców
+GenericName[bg]=Архив на карти на водача
+GenericName[cs]=Archiv karet řidičů
+Comment=Read, archive and evaluate tachograph driver cards
+Comment[de]=Fahrerkarten auslesen, archivieren und nach Lenk- und Ruhezeiten auswerten
+Comment[pl]=Odczyt, archiwizacja i analiza kart kierowców
+Comment[bg]=Прочитане, архивиране и анализ на карти на водача
+Comment[cs]=Načítání, archivace a vyhodnocení karet řidičů
+Exec=tachoarchiv
+Icon=io.github.tachoarchiv.TachoArchiv
+Terminal=false
+Categories=Office;
+Keywords=tachograph;tachograf;fahrtenschreiber;fahrerkarte;ddd;lkw;truck;kierowca;

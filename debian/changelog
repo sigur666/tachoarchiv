@@ -1,0 +1,258 @@
+tachoarchiv (1.10.0) unstable; urgency=medium
+
+  * Bedienungsanleitung beigelegt: doc/bedienungsanleitung.md, im Paket unter
+    /usr/share/doc/tachoarchiv/, im Programm ueber Hilfe - Bedienungsanleitung.
+    Mit tools/manual_pdf.py laesst sie sich als PDF setzen.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 07:25:00 +0200
+
+tachoarchiv (1.9.1) unstable; urgency=medium
+
+  * Die Datei BITTE-HIER-ABLEGEN.txt im erca-Ordner erklaert jetzt vollstaendig,
+    woher das ERCA-Wurzelzertifikat zu bekommen ist (JRC, Mitgliedstaat,
+    Uebernahme von Dritten), wohin es gehoert und wie es anhand des
+    SHA-256-Fingerabdrucks nachgeprueft wird. Dieselbe Anleitung steht in der
+    README.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 07:20:00 +0200
+
+tachoarchiv (1.9.0) unstable; urgency=medium
+
+  * Wurzelzertifikate koennen systemweit liegen: gesucht wird zuerst im Archiv
+    des Benutzers, danach in /usr/local/share/tachoarchiv/erca und
+    /usr/share/tachoarchiv/erca. Damit muss nicht jeder Benutzer eines Rechners
+    das Zertifikat einzeln hinterlegen.
+  * "Zertifikate untersuchen" nennt die durchsuchten Ordner und den SHA-256
+    jedes hinterlegten Wurzelzertifikats - zum Vergleich mit der amtlichen
+    Veroeffentlichung, damit kein untergeschobener Vertrauensanker durchgeht.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 07:15:00 +0200
+
+tachoarchiv (1.8.4) unstable; urgency=medium
+
+  * Nur Dokumentation: die Signaturpruefung fuer Generation 2 ist an einer
+    echten Fahrerkarte mit dem amtlichen ERCA-Wurzelzertifikat vollstaendig
+    bestaetigt. README und TODO halten den Stand jetzt richtig fest.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 07:10:00 +0200
+
+tachoarchiv (1.8.3) unstable; urgency=medium
+
+  * Der Ordner fuer die ERCA-Wurzelzertifikate wird beim Start angelegt und
+    enthaelt eine Datei BITTE-HIER-ABLEGEN.txt, die erklaert, was hineingehoert.
+  * Fehlt das Wurzelzertifikat, nennt die Meldung den Pfad und bietet an, den
+    Ordner zu oeffnen.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 07:05:00 +0200
+
+tachoarchiv (1.8.2) unstable; urgency=medium
+
+  * An einer echten Fahrerkarte der 2. Generation nachgemessen: signiert wird
+    der Zertifikatsrumpf einschliesslich seiner Kennung 7F4E. Die zweite,
+    bisher ersatzweise zugelassene Lesart entfaellt - sie haette die Pruefung
+    nur aufgeweicht.
+  * "Zertifikate untersuchen": leere Zertifikatsdateien werden als solche
+    benannt, statt hundert Zeilen Fuellbytes auszugeben.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 06:55:00 +0200
+
+tachoarchiv (1.8.1) unstable; urgency=medium
+
+  * Generation 2 laesst sich schon ohne hinterlegte ERCA-Wurzel pruefen: die
+    Dateisignaturen und die Verbindung Karte - Mitgliedstaat werden bestaetigt,
+    offen bleibt nur die Wurzel. Eine veraenderte Datei faellt auch dann auf.
+  * Neu unter Hilfe: "Zertifikate untersuchen" beschreibt Aufbau, Kurve und
+    Laengen der Kartenzertifikate - ohne Fahrerdaten.
+  * Erklaerende Texte waren in manchen Themen nahezu unsichtbar (helle Schrift
+    auf hellem Grund). Die gedaempfte Farbe wird jetzt aus Text- und
+    Hintergrundfarbe gemischt und sitzt in hellen wie dunklen Themen richtig.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 06:45:00 +0200
+
+tachoarchiv (1.8.0) unstable; urgency=medium
+
+  * Signaturpruefung jetzt auch fuer Generation 2 (Smart Tachograph): ECDSA
+    ueber die Kurven der Anlage 11 einschliesslich Brainpool, Zertifikate im
+    Format "card verifiable certificate", Kette Wurzel - Mitgliedstaat -
+    Signaturzertifikat der Karte. Ein Verknuepfungszertifikat im Download
+    ueberbrueckt den Wechsel der ERCA-Generation.
+  * Der Ordner "erca" nimmt Wurzeln beider Generationen auf; erkannt wird am
+    Inhalt, nicht am Dateinamen.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 06:10:00 +0200
+
+tachoarchiv (1.7.0) unstable; urgency=medium
+
+  * Pruefung der Kartensignaturen (Generation 1): Kette Karte -
+    Mitgliedstaat - ERCA, Ergebnis je Datei im Archivreiter. Der amtliche
+    Wurzelschluessel wird nicht mitgeliefert und gehoert in den Ordner "erca"
+    im Archivverzeichnis; ohne ihn behauptet das Programm nichts.
+  * PDF-Bericht: Dialog mit Wahl zwischen vollstaendiger Auswertung und nur
+    den Verstoessen, Zeitraum und eigener Berichtssprache. Ein Bericht laesst
+    sich damit in einer Sprache ausgeben, die die Oberflaeche nicht hat.
+  * Rechtsgrundlagen werden uebersetzt und folgen der amtlichen Zitierweise
+    der jeweiligen Sprache.
+  * Sprachauswahl zeigt den ISO-639-3-Code neben dem Eigennamen.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Sat, 10 Oct 2026 04:40:00 +0200
+
+tachoarchiv (1.6.0) unstable; urgency=medium
+
+  * Neuer Fensteraufbau: links Kalender und Kartenuebersicht, rechts die
+    Reiter Tag, Tage, Verstoesse, Warnungen, Restzeit, Schichten, Wochen,
+    Fahrzeug, Ereignisse und Archiv. Ein Klick im Kalender oeffnet den Tag.
+  * Tage mit Verstoessen werden farbig markiert - in der Oberflaeche und im
+    PDF-Bericht, jeweils zusaetzlich mit Zeichen und Klartext.
+  * Neuer Reiter Restzeit: Prognose der noch zulaessigen Lenkzeit mit
+    Herleitung und Rechtsgrundlage.
+  * Neuer Reiter Schichten mit Kennzahlen je Schicht.
+  * Ereignisse jetzt getrennt nach Fehlern, Kontrollen und Sonstigem.
+  * Fahrer- und Fahrzeugliste liegen im Reiter Archiv (Datenschutz).
+  * Zugangsschutz fuer das Archiv: AES-256-GCM-Verschluesselung der
+    Archivdateien, Passwort und Wiederherstellungsschluessel, Selbstsperre
+    nach einstellbarer Zeit. Voreinstellung bleibt ohne Passwort.
+  * Geschwindigkeitsauswertung aus dem Massenspeicher (TREP 0x04/0x24/0x34):
+    Tagesverlauf, Ueberschreitungen, Stundenwerte und CSV-Ausgabe.
+  * Demodaten enthalten jetzt auch eine Fahrzeugdatei.
+  * Neue Abhaengigkeit python3-cryptography.
+  * Schichten mit Wochenruhe sind grau hinterlegt, damit die Wochen abgegrenzt
+    sind; Rot und Gelb bleiben Verstoessen und Warnungen vorbehalten.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Wed, 07 Oct 2026 14:20:00 +0200
+
+tachoarchiv (1.5.0) unstable; urgency=medium
+
+  * install.sh und uninstall.sh fuer beliebige Linux-Distributionen: erkennen
+    apt, dnf, pacman, zypper und apk, installieren PC/SC, pcscd, Schriften und
+    Qt nach und legen bei fehlendem PySide6 eine eigene Python-Umgebung an.
+  * Installation systemweit, benutzerweit oder in ein eigenes Ziel.
+  * Neue Optionen --version und --help auf der Befehlszeile.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Wed, 07 Oct 2026 04:30:00 +0200
+
+tachoarchiv (1.4.2) unstable; urgency=medium
+
+  * EF_VU_Configuration (0540) wird nicht mehr angefordert: die Datei gehoert
+    nicht zum Download-Datensatz nach Anlage 7 und ist nur einem
+    authentisierten Fahrzeuggeraet zugaenglich. Karten der 2. Generation
+    Version 2 meldeten dafuer 6982.
+  * Ein 6982 beim Lesen erscheint jetzt als Hinweis statt als Warnung.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Mon, 05 Oct 2026 17:45:00 +0200
+
+tachoarchiv (1.4.1) unstable; urgency=medium
+
+  * Eine nicht lesbare Datei bricht den Kartendownload nicht mehr ab; sie wird
+    als Warnung gemeldet, die uebrigen Dateien werden archiviert.
+  * Fehlermeldungen bei READ BINARY nennen jetzt die Dateikennung.
+  * Die Kartendiagnose weist die Kartenart aus (Fahrer-, Werkstatt-,
+    Kontroll- oder Unternehmenskarte).
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Mon, 05 Oct 2026 17:35:00 +0200
+
+tachoarchiv (1.4.0) unstable; urgency=medium
+
+  * Albanisch und Serbisch ergaenzt; Serbisch in kyrillischer und in
+    lateinischer Schrift, die Umschrift wird aus der kyrillischen Fassung
+    gerechnet (tools/sr_latn.py) und per Test deckungsgleich gehalten.
+  * Damit 30 Sprachen.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 18:05:00 +0200
+
+tachoarchiv (1.3.1) unstable; urgency=medium
+
+  * fonts-noto-core ist jetzt eine echte Abhaengigkeit statt einer Empfehlung
+    und wird damit in jedem Fall mitinstalliert. Das Paket enthaelt auch
+    Noto Nastaliq Urdu; ein weiteres Schriftpaket ist nicht noetig.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 17:50:00 +0200
+
+tachoarchiv (1.3.0) unstable; urgency=medium
+
+  * Oberflaeche in 27 Sprachen: zusaetzlich Rumaenisch, Slowakisch, Ungarisch,
+    Kroatisch, Slowenisch, Litauisch, Lettisch, Estnisch, Italienisch,
+    Spanisch, Franzoesisch, Niederlaendisch, Portugiesisch, Griechisch,
+    Ukrainisch, Russisch, Weissrussisch, Tuerkisch, Arabisch, Hindi, Urdu
+    und Punjabi.
+  * Texte liegen jetzt als JSON je Sprache unter locale/ statt im Quelltext.
+  * Rechts-nach-links-Darstellung fuer Arabisch und Urdu.
+  * Dauerhafte Meldungen in der Statuszeile folgen dem Sprachwechsel.
+  * Empfehlung fonts-noto-core fuer arabische und indische Schriften.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 17:30:00 +0200
+
+tachoarchiv (1.2.0) unstable; urgency=medium
+
+  * Fahrzeug-Downloads (Massenspeicher) koennen importiert und archiviert
+    werden: eigener Reiter "Fahrzeuge", Kopfdaten aus dem Uebersichtsblock,
+    Pruefsummen, Aufbewahrungsfrist und Hinweis auf die 90-Tage-Frist.
+  * Generation 1 und 2 einschliesslich Smart Tachograph Version 2.
+  * Dateien mit unlesbaren Kopfdaten werden trotzdem aufbewahrt.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 05:45:00 +0200
+
+tachoarchiv (1.1.0) unstable; urgency=medium
+
+  * Neue Pruefung: deckt das Archiv den Nachweiszeitraum ab (laufender Tag und
+    56 vorausgehende Tage, Art. 36 VO (EU) 165/2014)? Fehlende Tage erscheinen
+    als Warnung, die Abdeckung steht in der Uebersicht.
+  * Laenge des Nachweiszeitraums und die Pruefung selbst sind einstellbar;
+    der Zeitraumfilter folgt der Einstellung.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 05:10:00 +0200
+
+tachoarchiv (1.0.5) unstable; urgency=medium
+
+  * Rueckmeldungen des Downloads werden getrennt: fehlende Dateien als Warnung
+    im Dialog, folgenlose Hinweise nur in der Statuszeile.
+  * Ein nicht waehlbares Stammverzeichnis erscheint nicht mehr als Fehler,
+    sondern als erklaerender Hinweis in der jeweiligen Sprache.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 04:55:00 +0200
+
+tachoarchiv (1.0.4) unstable; urgency=medium
+
+  * Signaturlaenge wird ermittelt statt vorgegeben: Karten der 2. Generation
+    liefern je nach Kurve 64, 96 oder 132 Byte; feste Vorgabe ergab 6700.
+  * Eine nicht lesbare Signatur bricht den Download nicht mehr ab, die
+    Nutzdaten werden archiviert und eine Warnung gemeldet.
+  * Diagnose probiert den Signaturbefehl mit mehreren Laengen.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 04:50:00 +0200
+
+tachoarchiv (1.0.3) unstable; urgency=medium
+
+  * READ BINARY passt die Blockgroesse an: Karten mit strenger Laengenpruefung
+    (6700 „falsche Laenge“, u. a. Alcor-Leser mit Gen2-Karten) werden gelesen.
+  * Diagnose prueft zusaetzlich einen grossen Lesezugriff und den Hash-Befehl.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 04:45:00 +0200
+
+tachoarchiv (1.0.2) unstable; urgency=medium
+
+  * Karten, die das Stammverzeichnis in keiner Form auswaehlen lassen
+    (6A86, u. a. Karten der 2. Generation), werden jetzt gelesen.
+  * Kartendiagnose gibt nur noch die Laenge gelesener Daten aus, nicht den
+    Inhalt - die Datei 0520 beginnt mit der Kartennummer.
+  * Zwei weitere Auswahlformen in der Diagnose.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 04:40:00 +0200
+
+tachoarchiv (1.0.1) unstable; urgency=medium
+
+  * Kartenauswahl robuster: MF, Anwendung und Dateien werden mit mehreren
+    P2-Formen probiert (Karten, die 6A86 melden).
+  * Ein nicht waehlbares Stammverzeichnis bricht den Download nicht mehr ab.
+  * Neue Kartendiagnose im Hilfemenue (ATR, Protokoll, Antwort je Befehl).
+  * Qt-eigene Schaltflaechentexte folgen der gewaehlten Sprache.
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 04:30:00 +0200
+
+tachoarchiv (1.0.0) unstable; urgency=medium
+
+  * Erste Paketierung fuer Debian.
+  * Auslesen der Fahrerkarte ueber PC/SC, revisionssicheres Archiv,
+    Auswertung nach VO (EG) 561/2006 einschliesslich der Ausnahme fuer
+    Faehr- und Zugueberfahrten (Art. 9).
+
+ -- TachoArchiv <8951678+sigur666@users.noreply.github.com>  Thu, 24 Sep 2026 04:00:00 +0200

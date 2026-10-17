@@ -1,0 +1,4 @@
+data/io.github.tachoarchiv.TachoArchiv.desktop      usr/share/applications
+data/io.github.tachoarchiv.TachoArchiv.svg          usr/share/icons/hicolor/scalable/apps
+data/io.github.tachoarchiv.TachoArchiv.metainfo.xml usr/share/metainfo
+doc/bedienungsanleitung.md                           usr/share/doc/tachoarchiv

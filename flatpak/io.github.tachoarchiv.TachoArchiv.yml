@@ -1,0 +1,64 @@
+# Flatpak-Manifest für TachoArchiv
+# Bauen:  ./build.sh   (siehe README.md)
+id: io.github.tachoarchiv.TachoArchiv
+runtime: org.kde.Platform
+runtime-version: '6.8'
+sdk: org.kde.Sdk
+# PySide6 (Qt for Python) als BaseApp – Version muss zur KDE-Runtime passen.
+# Verfügbare Versionen: flatpak remote-info --log flathub io.qt.PySide.BaseApp//6.8
+base: io.qt.PySide.BaseApp
+base-version: '6.8'
+command: tachoarchiv
+
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  # Zugriff auf den pcscd des Hosts (Kartenleser). Flatpak setzt PCSCLITE_CSOCK_NAME selbst.
+  - --socket=pcsc
+  # Kein Netzwerk: Fahrerdaten verlassen den Rechner nicht.
+
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
+
+modules:
+  # Nur die Client-Bibliothek libpcsclite wird benötigt. Die Protokollversion sollte
+  # zum pcscd des Hosts passen (pcsc-lite >= 2.0 auf dem Host empfohlen).
+  - name: pcsc-lite
+    buildsystem: meson
+    config-opts:
+      - -Dlibsystemd=false
+      - -Dlibudev=false
+      - -Dpolkit=false
+    sources:
+      - type: git
+        url: https://github.com/LudovicRousseau/PCSC.git
+        tag: 2.3.0
+    cleanup:
+      - /bin
+      - /sbin
+      - /include
+      - /lib/pkgconfig
+      - /share/man
+      - /share/doc
+      - /lib/systemd
+      - /etc
+
+  - name: tachoarchiv
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/lib/tachoarchiv
+      - cp -r tachoarchiv /app/lib/tachoarchiv/
+      - python3 -m compileall -q /app/lib/tachoarchiv
+      - install -Dm755 flatpak/tachoarchiv.sh /app/bin/tachoarchiv
+      - install -Dm644 data/io.github.tachoarchiv.TachoArchiv.desktop -t /app/share/applications/
+      - install -Dm644 data/io.github.tachoarchiv.TachoArchiv.metainfo.xml -t /app/share/metainfo/
+      - install -Dm644 data/io.github.tachoarchiv.TachoArchiv.svg -t /app/share/icons/hicolor/scalable/apps/
+    sources:
+      - type: dir
+        path: ..
+        skip:
+          - build-dir
+          - repo
+          - .flatpak-builder
