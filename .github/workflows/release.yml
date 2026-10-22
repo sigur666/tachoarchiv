@@ -27,7 +27,7 @@ jobs:
       - name: Werkzeuge
         run: |
           apt-get update
-          apt-get install -y --no-install-recommends git ca-certificates dpkg-dev \
+          apt-get install -y --no-install-recommends git ca-certificates build-essential dpkg-dev \
             debhelper dh-python python3-all python3-setuptools pybuild-plugin-pyproject \
             python3-cryptography
       - uses: actions/checkout@v4
