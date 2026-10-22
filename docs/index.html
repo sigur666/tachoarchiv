@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TachoArchiv – driver card archive for Linux</title>
+<meta name="description" content="Read, archive and evaluate digital tachograph driver cards on Linux. Offline, open source, 30 languages.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #f7f8fa; --surface: #ffffff; --text: #1b1f24; --muted: #5a6370;
+    --line: #e2e5ea; --accent: #1f4e96; --accent-ink: #ffffff; --soft: #eaf0fa;
+    --warn: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111418; --surface: #1a1e24; --text: #e7eaee; --muted: #9aa3ae;
+      --line: #2b313a; --accent: #6b9be6; --accent-ink: #0d1520; --soft: #1c2738;
+      --warn: #f2938c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 56px 0 32px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { width: 56px; height: 56px; }
+  h1 { font-size: 2.4rem; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+  .tagline { font-size: 1.2rem; color: var(--muted); margin: 14px 0 26px; max-width: 46em; }
+  h2 { font-size: 1.5rem; margin: 0 0 14px; }
+  h3 { font-size: 1.05rem; margin: 0 0 6px; }
+  section { padding: 36px 0; border-top: 1px solid var(--line); }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .btn { display: inline-block; padding: 11px 18px; border-radius: 8px; text-decoration: none;
+    font-weight: 600; border: 1px solid var(--accent); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.ghost { color: var(--accent); background: transparent; }
+  .version { color: var(--muted); font-size: 0.95rem; }
+  .hero-shot { margin-top: 34px; }
+  figure { margin: 0; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 10px;
+    border: 1px solid var(--line); box-shadow: 0 8px 28px rgba(0,0,0,.10); background: #fff; }
+  figcaption { color: var(--muted); font-size: 0.93rem; margin-top: 10px; }
+  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+  .card p { margin: 0; color: var(--muted); }
+  .shots { display: grid; gap: 34px; }
+  @media (min-width: 900px) {
+    .shot-row { display: grid; grid-template-columns: 2fr 1fr; gap: 28px; align-items: center; }
+    .shot-row.flip { grid-template-columns: 1fr 2fr; }
+    .shot-row.flip figure { order: 2; }
+  }
+  .shot-row .text p { color: var(--muted); margin: 0; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  th { background: var(--soft); font-size: 0.9rem; }
+  code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.9em; }
+  pre { background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px 14px; overflow-x: auto; margin: 8px 0 0; }
+  ul.rules { columns: 2 280px; column-gap: 28px; padding-left: 18px; margin: 0; }
+  ul.rules li { margin-bottom: 6px; break-inside: avoid; }
+  .note { background: var(--soft); border-radius: 10px; padding: 16px 18px; color: var(--text); }
+  footer { padding: 30px 0 50px; color: var(--muted); font-size: 0.92rem; border-top: 1px solid var(--line); }
+  @media (max-width: 600px) { h1 { font-size: 1.9rem; } header { padding-top: 36px; } th, td { padding: 10px; } }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="brand">
+    <img src="icon.svg" alt="">
+    <h1>TachoArchiv</h1>
+  </div>
+  <p class="tagline">A Linux desktop application to <strong>read, archive and evaluate digital tachograph driver cards</strong>
+    (generation 1 and 2). It checks driving and rest times against EU rules, keeps the signed original files tamper-evident,
+    and never sends data anywhere.</p>
+  <div class="btns">
+    <a class="btn primary" href="#download">Download</a>
+    <a class="btn ghost" href="https://github.com/sigur666/tachoarchiv">Source code on GitHub</a>
+    <span class="version" id="version-hero"></span>
+  </div>
+  <figure class="hero-shot">
+    <img src="screenshots/day.png" width="1600" height="1012" alt="Main window: calendar on the left, the selected day as a step chart with driving, work and rest, and the findings for that day.">
+    <figcaption>Day view: activities as a step chart, totals, and every finding with its legal basis. Shown with the built-in demo data.</figcaption>
+  </figure>
+</header>
+
+<main>
+<section class="wrap">
+  <h2>What it does</h2>
+  <div class="grid">
+    <div class="card"><h3>Read cards</h3><p>Signed download of the driver card through any PC/SC card reader, or import existing <code>.DDD</code>, <code>.C1B</code> and <code>.TGD</code> files.</p></div>
+    <div class="card"><h3>Archive safely</h3><p>Original files stay unchanged and read-only, with SHA-256 checksums, duplicate detection and an archive integrity check. Optional AES-256-GCM encryption with password and recovery key.</p></div>
+    <div class="card"><h3>Check the rules</h3><p>Evaluation under Reg. (EC) 561/2006 as amended by (EU) 2020/1054, Reg. (EU) 165/2014 and 581/2010, optionally the German Working Hours Act (ArbZG § 21a).</p></div>
+    <div class="card"><h3>Plan ahead</h3><p>The <em>Time left</em> tab forecasts remaining driving time for today, the week and the fortnight, plus free extensions and reduced rests.</p></div>
+    <div class="card"><h3>Vehicle data</h3><p>Archive vehicle unit downloads (<code>.DDD</code>, <code>.V1B</code>, <code>.V2B</code>) and analyse recorded speed with limit violations and hourly values.</p></div>
+    <div class="card"><h3>Verify signatures</h3><p>Card signatures are checked against the ERCA root key for both card generations.</p></div>
+    <div class="card"><h3>Reports</h3><p>PDF report (complete or violations only, in any of the languages) and CSV export.</p></div>
+    <div class="card"><h3>30 languages, offline</h3><p>Interface in 30 languages including Arabic and Urdu (right-to-left). No network access – driver data never leaves the computer.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>A look at the interface</h2>
+  <div class="shots">
+    <div class="shot-row">
+      <figure><img src="screenshots/days.png" width="1600" height="1012" loading="lazy" alt="List of days, each with a small activity chart and the totals for driving, work, availability and rest."></figure>
+      <div class="text"><h3>All days at a glance</h3><p>Every day with its activity chart and totals. Days with an infringement are highlighted; the calendar on the left marks them too and shows driving time as a bar under each date.</p></div>
+    </div>
+    <div class="shot-row flip">
+      <figure><img src="screenshots/violations.png" width="1600" height="1012" loading="lazy" alt="Table of infringements with time, rating, legal basis and description."></figure>
+      <div class="text"><h3>Infringements with legal basis</h3><p>Each infringement names the article it breaks and explains why – for example a missing break after 4.5 hours of driving or a daily rest that was too short.</p></div>
+    </div>
+    <div class="shot-row">
+      <figure><img src="screenshots/time-left.png" width="1600" height="1012" loading="lazy" alt="Gauges for driving time left today, this week and this fortnight, with a table showing how the values are derived."></figure>
+      <div class="text"><h3>Remaining driving time</h3><p>How much driving is still allowed today, this week and in the fortnight, when the shift must end and when the next weekly rest is due – with the derivation and the legal reference.</p></div>
+    </div>
+    <div class="shot-row flip">
+      <figure><img src="screenshots/speed.png" width="1600" height="1012" loading="lazy" alt="Speed chart of one day from the vehicle unit, with the set limit and sections above it highlighted."></figure>
+      <div class="text"><h3>Speed from the vehicle unit</h3><p>Per-second speed from the mass memory as a daily chart, sections above a limit you set, hourly averages and peaks, exportable as CSV.</p></div>
+    </div>
+    <div class="shot-row">
+      <figure><img src="screenshots/archive.png" width="1600" height="1012" loading="lazy" alt="Archive tab listing archived files with source, retention date, checksum and signature status."></figure>
+      <div class="text"><h3>Tamper-evident archive</h3><p>Every download is kept with source, retention date, checksum and signature status. Multiple downloads of the same driver are merged automatically.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Rules that are checked</h2>
+  <ul class="rules">
+    <li>Coverage of the record period (current day plus the previous 56 days, configurable)</li>
+    <li>Breaks: 45 min after 4.5 h driving, or split 15 + 30 min</li>
+    <li>Daily driving time: 9 h, twice a week 10 h</li>
+    <li>Daily rest: 11 h, reduced 9 h at most three times</li>
+    <li>Weekly rest after at most six 24-hour periods, including compensation of reduced weekly rests</li>
+    <li>Weekly driving time 56 h, fortnightly 90 h</li>
+    <li>Ferry and train crossings (Art. 9): at most two interruptions totalling one hour</li>
+    <li>German Working Hours Act (optional): breaks, 10 h daily, 60 h weekly, 48 h average</li>
+    <li>Card download interval (28 days), card expiry, recording gaps</li>
+  </ul>
+</section>
+
+<section class="wrap" id="download">
+  <h2>Download</h2>
+  <p class="version" id="version-dl">The links below always point to the latest release.</p>
+  <table>
+    <thead><tr><th>Package</th><th>For</th><th>Install</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><a href="https://github.com/sigur666/tachoarchiv/releases/latest/download/tachoarchiv_all.deb"><strong>tachoarchiv_all.deb</strong></a></td>
+        <td>Debian 13 (Trixie) or newer, Ubuntu 25.04 or newer</td>
+        <td><pre>sudo apt install ./tachoarchiv_all.deb</pre></td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/sigur666/tachoarchiv/releases/latest/download/TachoArchiv.flatpak"><strong>TachoArchiv.flatpak</strong></a></td>
+        <td>Any distribution with Flatpak, including older Debian and Ubuntu</td>
+        <td><pre>flatpak install --user TachoArchiv.flatpak</pre></td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/sigur666/tachoarchiv/releases/latest/download/tachoarchiv-linux.tar.gz"><strong>tachoarchiv-linux.tar.gz</strong></a></td>
+        <td>Any distribution (apt, dnf, pacman, zypper, apk); fetches missing dependencies</td>
+        <td><pre>tar xf tachoarchiv-linux.tar.gz
+cd tachoarchiv-*/ &amp;&amp; ./install.sh --user</pre></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:16px"><a href="https://github.com/sigur666/tachoarchiv/releases">All releases and release notes</a></p>
+  <div class="note">
+    <strong>Card reader:</strong> any PC/SC reader works. The <code>pcscd</code> service must be running
+    (<code>sudo apt install pcscd</code> on Debian and Ubuntu). Without a reader you can still import files or
+    try the program with the built-in demo data (<em>Load demo data</em>).
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Good to know</h2>
+  <div class="grid">
+    <div class="card"><h3>Working aid, not legal advice</h3><p>The evaluation supports checks but does not replace a legal review. All times are shown in UTC.</p></div>
+    <div class="card"><h3>Documentation</h3><p>The full user manual is in German: <a href="https://github.com/sigur666/tachoarchiv/blob/main/doc/bedienungsanleitung.md">doc/bedienungsanleitung.md</a>. It is also available inside the program under Help.</p></div>
+    <div class="card"><h3>License</h3><p>Free software under the <a href="https://github.com/sigur666/tachoarchiv/blob/main/COPYING">GNU GPL v3 or later</a>.</p></div>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">
+  TachoArchiv · GPL-3.0-or-later · <a href="https://github.com/sigur666/tachoarchiv">github.com/sigur666/tachoarchiv</a>
+</footer>
+
+<script>
+  // Shows the current version number; the download links work without it.
+  fetch("https://api.github.com/repos/sigur666/tachoarchiv/releases/latest")
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(rel => {
+      const v = rel.tag_name.replace(/^v/, "");
+      const d = new Date(rel.published_at).toISOString().slice(0, 10);
+      document.getElementById("version-hero").textContent = "Latest version " + v;
+      document.getElementById("version-dl").textContent =
+        "Latest version: " + v + ", released " + d + ". The links below always point to the latest release.";
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>

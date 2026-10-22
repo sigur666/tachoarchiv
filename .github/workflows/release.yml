@@ -1,0 +1,111 @@
+# Baut bei jedem Versions-Tag (v1.2.3) die Pakete und legt einen GitHub-Release an.
+# Die Dateinamen enthalten keine Versionsnummer, damit die Links
+#   https://github.com/<owner>/tachoarchiv/releases/latest/download/<datei>
+# immer auf die aktuelle Fassung zeigen.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Vorhandener Tag, für den der Release gebaut wird (z. B. v1.10.0)"
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  TAG: ${{ github.event.inputs.tag || github.ref_name }}
+
+jobs:
+  deb:
+    runs-on: ubuntu-latest
+    container: debian:trixie
+    steps:
+      - name: Werkzeuge
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git ca-certificates dpkg-dev \
+            debhelper dh-python python3-all python3-setuptools pybuild-plugin-pyproject \
+            python3-cryptography
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+          path: src
+      - name: Paket bauen
+        run: |
+          cd src
+          dpkg-buildpackage -us -uc -b
+          mkdir -p ../dist
+          cp ../tachoarchiv_*_all.deb ../dist/tachoarchiv_all.deb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deb
+          path: dist/
+
+  tarball:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - name: Archiv mit install.sh
+        run: |
+          mkdir dist
+          git archive --format=tar.gz --prefix="tachoarchiv-${TAG#v}/" -o dist/tachoarchiv-linux.tar.gz HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tarball
+          path: dist/
+
+  flatpak:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.8
+      options: --privileged
+    # Das Flatpak ist das jüngste Ziel; schlägt es fehl, erscheint der Release trotzdem.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: TachoArchiv.flatpak
+          manifest-path: flatpak/io.github.tachoarchiv.TachoArchiv.yml
+          cache-key: flatpak-${{ github.sha }}
+          upload-artifact: false
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flatpak
+          path: TachoArchiv.flatpak
+
+  release:
+    needs: [deb, tarball, flatpak]
+    if: ${{ !cancelled() && needs.deb.result == 'success' && needs.tarball.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          ls -la dist
+          notes="TachoArchiv ${TAG#v}
+
+          | File | For |
+          |---|---|
+          | \`tachoarchiv_all.deb\` | Debian 13+, Ubuntu 25.04+ |
+          | \`TachoArchiv.flatpak\` | any distribution with Flatpak |
+          | \`tachoarchiv-linux.tar.gz\` | any distribution, run \`./install.sh\` |"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* --title "TachoArchiv ${TAG#v}" --notes "$notes" --latest
+          fi

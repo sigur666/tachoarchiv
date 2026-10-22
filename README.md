@@ -1,5 +1,13 @@
 # TachoArchiv
 
+> **English:** Linux desktop application to read, archive and evaluate digital tachograph driver cards (generation 1 and 2), offline, in 30 languages.
+> Project page with screenshots: **https://sigur666.github.io/tachoarchiv/** ·
+> Download the latest release: [.deb](https://github.com/sigur666/tachoarchiv/releases/latest/download/tachoarchiv_all.deb) ·
+> [Flatpak](https://github.com/sigur666/tachoarchiv/releases/latest/download/TachoArchiv.flatpak) ·
+> [tar.gz with install.sh](https://github.com/sigur666/tachoarchiv/releases/latest/download/tachoarchiv-linux.tar.gz)
+
+![TachoArchiv – Tagesansicht](docs/screenshots/day.png)
+
 Linux-Programm mit grafischer Oberfläche zum **Auslesen, Archivieren und Auswerten von Fahrerkarten** (digitaler Fahrtenschreiber, Generation 1 und 2).
 Oberfläche in **30 Sprachen**, installierbar auf **jeder Linux-Distribution**.
 
@@ -227,3 +235,13 @@ Läuft die Prüfung bei einer echten Karte nicht durch, hilft **Hilfe ▸ Zertif
 - Generation 2 ist an einer echten Fahrerkarte mit dem amtlichen ERCA-Wurzelzertifikat vollständig bestätigt (Oktober 2026): Zertifikatsaufbau, Dateisignaturen und die ganze Kette Karte → Mitgliedstaat → Wurzel gehen auf. Signiert wird der Zertifikatsrumpf einschließlich seiner Kennung `7F4E`. Generation 1 ist nur gegen selbst erzeugte Ketten geprüft – Karten dieser Generation sind nicht mehr im Umlauf, die Prüfung gibt es für alte Archivbestände.
 - Schlägt die Prüfung bei einer Karte fehl, von der Sie wissen, dass sie in Ordnung ist, ist das ein Hinweis auf einen Fehler im Programm – bitte melden, am besten mit der Ausgabe von **Hilfe ▸ Zertifikate untersuchen**.
 - Geprüft wird die Signatur, nicht die Sperrung eines Zertifikats.
+
+## Neue Version veröffentlichen
+
+Versionsnummer in `pyproject.toml`, `tachoarchiv/__init__.py` und `debian/changelog` erhöhen, dann den Tag hochladen:
+
+```sh
+git tag -a v1.11.0 -m "Version 1.11.0" && git push origin main v1.11.0
+```
+
+Der Workflow `.github/workflows/release.yml` baut daraus `.deb`, Flatpak und `tar.gz` und legt den Release an. Die Download-Links auf der Projektseite (`docs/index.html`, GitHub Pages) zeigen über `releases/latest/download/…` automatisch auf die neue Fassung. Neue Bildschirmfotos: `python tools/screenshots.py docs/screenshots en`.
